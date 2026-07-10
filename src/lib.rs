@@ -1,4 +1,4 @@
-mod pool;
+pub mod pool;
 mod wikiquote;
 
 use engyls::config::ConfigManager;
@@ -169,7 +169,7 @@ fn translate_with_google(quote: &str, target_language: &str) -> anyhow::Result<S
     })
 }
 
-fn translate_quote(quote: &str, target_language: &str) -> anyhow::Result<String> {
+pub fn translate_quote(quote: &str, target_language: &str) -> anyhow::Result<String> {
     let target_language = target_language.trim().to_uppercase();
     if target_language == "ORIGINAL" || target_language == "EN" {
         return Ok(quote.to_string());
@@ -185,7 +185,7 @@ fn translate_quote(quote: &str, target_language: &str) -> anyhow::Result<String>
     translate_with_google(quote, &target_language)
 }
 
-fn parse_cached_quote(raw_text: &str) -> Option<(String, String)> {
+pub fn parse_cached_quote(raw_text: &str) -> Option<(String, String)> {
     let (quote, author) = raw_text.rsplit_once(" — ")?;
     Some((
         quote.trim().trim_matches('"').to_string(),
@@ -193,7 +193,7 @@ fn parse_cached_quote(raw_text: &str) -> Option<(String, String)> {
     ))
 }
 
-fn remove_cached_quote_from_pool() -> anyhow::Result<()> {
+pub fn remove_cached_quote_from_pool() -> anyhow::Result<()> {
     let cache_file = cache_file_path();
     let raw_text = match std::fs::read_to_string(&cache_file) {
         Ok(text) => text,
@@ -209,6 +209,44 @@ fn remove_cached_quote_from_pool() -> anyhow::Result<()> {
 
     let _ = std::fs::remove_file(cache_file);
     Ok(())
+}
+
+pub fn read_cached_quote() -> anyhow::Result<Option<String>> {
+    match std::fs::read_to_string(cache_file_path()) {
+        Ok(text) => Ok(Some(text)),
+        Err(err) if err.kind() == std::io::ErrorKind::NotFound => Ok(None),
+        Err(err) => Err(err.into()),
+    }
+}
+
+pub fn clear_cached_quote() -> anyhow::Result<()> {
+    let path = cache_file_path();
+    match std::fs::remove_file(&path) {
+        Ok(()) => Ok(()),
+        Err(err) if err.kind() == std::io::ErrorKind::NotFound => Ok(()),
+        Err(err) => Err(err.into()),
+    }
+}
+
+pub fn fetch_pool(author: &str) -> anyhow::Result<QuotePool> {
+    let (settings, _) = ConfigManager::load_settings();
+    let position_hash = settings.calculate_position_hash();
+    let quotes = fetch_wikiquote(author)?;
+    let pool = QuotePool {
+        position_hash,
+        quotes,
+    };
+    pool.save(author)?;
+    Ok(pool)
+}
+
+pub fn clear_pool(author: &str) -> anyhow::Result<()> {
+    let path = QuotePool::pool_path(author);
+    match std::fs::remove_file(&path) {
+        Ok(()) => Ok(()),
+        Err(err) if err.kind() == std::io::ErrorKind::NotFound => Ok(()),
+        Err(err) => Err(err.into()),
+    }
 }
 
 /// Fetch a random quote from WikiQuote for a weighted-random author and save it to the cache.

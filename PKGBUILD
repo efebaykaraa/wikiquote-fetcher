@@ -1,8 +1,9 @@
 pkgname=wikiquote-fetcher
-pkgver=0.1.3
+pkgver=1.0.0
 pkgrel=1
 pkgdesc="Fetches quotes from Wikiquote for desktop quote overlays"
 arch=('x86_64')
+url="https://github.com/efebaykaraa/wikiquote-fetcher"
 license=('GPL-3.0-or-later')
 makedepends=('cargo')
 source=()
