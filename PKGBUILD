@@ -1,5 +1,5 @@
 pkgname=wikiquote-fetcher
-pkgver=0.1.1
+pkgver=0.1.2
 pkgrel=1
 pkgdesc="Fetches quotes from Wikiquote for desktop quote overlays"
 arch=('x86_64')
@@ -11,7 +11,38 @@ sha256sums=()
 
 build() {
   cd "$startdir"
-  cargo build --release --locked
+
+  unset RUSTFLAGS
+  export RUSTFLAGS=
+  unset CARGO_ENCODED_RUSTFLAGS
+  export CARGO_ENCODED_RUSTFLAGS=
+  export CARGO_TARGET_X86_64_UNKNOWN_LINUX_GNU_LINKER=/usr/bin/gcc
+  export CC=gcc
+
+  cargo build --release --locked --lib
+
+  RING_OUT=""
+  for d in target/release/build/ring-*/out; do
+    if [ -d "$d" ]; then
+      RING_OUT="$d"
+      break
+    fi
+  done
+
+  if [ -n "$RING_OUT" ] && [ -f "$RING_OUT/libring_core_0_17_14_.a" ]; then
+    export RUSTFLAGS="$RUSTFLAGS -C link-arg=-Wl,--whole-archive -C link-arg=$RING_OUT/libring_core_0_17_14_.a -C link-arg=-Wl,--no-whole-archive"
+
+    libring_rlib=$(ls target/release/deps/libring-*.rlib 2>/dev/null | head -n1 || true)
+    if [ -n "$libring_rlib" ]; then
+      (cd "$RING_OUT" && ar x libring_core_0_17_14_.a)
+      if ls "$RING_OUT"/*.o >/dev/null 2>&1; then
+        ar r "$libring_rlib" "$RING_OUT"/*.o || true
+        rm -f "$RING_OUT"/*.o
+      fi
+    fi
+  fi
+
+  cargo build --release --locked --bin wikiquote-fetcher
 }
 
 package() {
