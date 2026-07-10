@@ -1,19 +1,14 @@
 # wikiquote-fetcher
 
-Fetches and prepares quotes for Marxist Quote.
+Reusable Rust library and CLI for fetching quotes from Wikiquote, translating text, and optionally storing quote pools in an application-provided directory.
 
-This repository contains the standalone fetcher binary and library crate. It
-depends on the sibling `engyls` repository for shared configuration types.
-
-Licensed under GPL-3.0-or-later.
+The library is application-agnostic: callers provide the author/page name, optional `WikiquoteConfig`, and optional `QuotePoolStore` path.
 
 ## CLI
 
-```bash
-wikiquote-fetcher fetch
-wikiquote-fetcher current
-wikiquote-fetcher cache-path
+```sh
+wikiquote-fetcher fetch "Rosa Luxemburg"
 wikiquote-fetcher translate TR "Workers of the world, unite!"
-wikiquote-fetcher pool fetch "Karl Marx"
-wikiquote-fetcher pool show "Karl Marx"
+wikiquote-fetcher pool --dir ~/.cache/my-quote-app/pools fetch "Rosa Luxemburg"
+wikiquote-fetcher pool --dir ~/.cache/my-quote-app/pools show "Rosa Luxemburg"
 ```

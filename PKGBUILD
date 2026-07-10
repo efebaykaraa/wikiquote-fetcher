@@ -1,7 +1,7 @@
 pkgname=wikiquote-fetcher
 pkgver=1.0.0
-pkgrel=1
-pkgdesc="Fetches quotes from Wikiquote for desktop quote overlays"
+pkgrel=2
+pkgdesc="Reusable Wikiquote quote fetching and translation library with CLI"
 arch=('x86_64')
 url="https://github.com/efebaykaraa/wikiquote-fetcher"
 license=('GPL-3.0-or-later')

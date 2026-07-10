@@ -1,21 +1,15 @@
 pkgname=wikiquote-fetcher
 pkgver=1.0.0
-_engylsver=1.0.0
-pkgrel=1
-pkgdesc="Fetches quotes from Wikiquote for desktop quote overlays"
+pkgrel=2
+pkgdesc="Reusable Wikiquote quote fetching and translation library with CLI"
 arch=('x86_64')
 url="https://github.com/efebaykaraa/wikiquote-fetcher"
 license=('GPL-3.0-or-later')
 makedepends=('cargo')
-source=(
-  "${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
-  "engyls-${_engylsver}.tar.gz::https://github.com/efebaykaraa/engyls/archive/refs/tags/v${_engylsver}.tar.gz"
-)
-sha256sums=('34463ccd0cd79aa03ddedaca934f666a08df8b66e5bd780a3f82b5103e79c6bb'
-            '48b06b3d1786407f971f7382bef51bada0fc81b9a7a4494044a726730f6d466d')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('34463ccd0cd79aa03ddedaca934f666a08df8b66e5bd780a3f82b5103e79c6bb')
 
 prepare() {
-  ln -sfn "$srcdir/engyls-$_engylsver" "$srcdir/engyls"
   cd "$srcdir/wikiquote-fetcher-$pkgver"
 
   export CARGO_HOME="$srcdir/cargo-home"

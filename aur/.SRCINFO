@@ -1,14 +1,12 @@
 pkgbase = wikiquote-fetcher
-	pkgdesc = Fetches quotes from Wikiquote for desktop quote overlays
+	pkgdesc = Reusable Wikiquote quote fetching and translation library with CLI
 	pkgver = 1.0.0
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/efebaykaraa/wikiquote-fetcher
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = cargo
 	source = wikiquote-fetcher-1.0.0.tar.gz::https://github.com/efebaykaraa/wikiquote-fetcher/archive/refs/tags/v1.0.0.tar.gz
-	source = engyls-1.0.0.tar.gz::https://github.com/efebaykaraa/engyls/archive/refs/tags/v1.0.0.tar.gz
 	sha256sums = 34463ccd0cd79aa03ddedaca934f666a08df8b66e5bd780a3f82b5103e79c6bb
-	sha256sums = 48b06b3d1786407f971f7382bef51bada0fc81b9a7a4494044a726730f6d466d
 
 pkgname = wikiquote-fetcher

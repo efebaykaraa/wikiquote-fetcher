@@ -6,9 +6,6 @@ license = "GPL-3.0-or-later"
 
 [dependencies]
 anyhow = "1.0"
-dirs = "6.0"
-engyls = { path = "../engyls" }
-rand = "0.9"
 scraper = "0.22"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"

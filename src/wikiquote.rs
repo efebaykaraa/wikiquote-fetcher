@@ -1,6 +1,28 @@
 use scraper::{Html, Selector};
 
+#[derive(Debug, Clone)]
+pub struct WikiquoteConfig {
+    pub user_agent: String,
+    pub max_quotes: usize,
+}
+
+impl Default for WikiquoteConfig {
+    fn default() -> Self {
+        Self {
+            user_agent: "wikiquote-fetcher/1.0".into(),
+            max_quotes: 200,
+        }
+    }
+}
+
 pub fn fetch_wikiquote(author: &str) -> anyhow::Result<Vec<String>> {
+    fetch_wikiquote_with_config(author, &WikiquoteConfig::default())
+}
+
+pub fn fetch_wikiquote_with_config(
+    author: &str,
+    config: &WikiquoteConfig,
+) -> anyhow::Result<Vec<String>> {
     let page_title = author.replace(' ', "_");
 
     let sections_url = format!(
@@ -9,7 +31,7 @@ pub fn fetch_wikiquote(author: &str) -> anyhow::Result<Vec<String>> {
     );
 
     let sections_body: String = ureq::get(&sections_url)
-        .header("User-Agent", "MarxistQuoteApp/1.0 (Linux; Desktop Widget)")
+        .header("User-Agent", &config.user_agent)
         .call()?
         .body_mut()
         .read_to_string()?;
@@ -63,7 +85,7 @@ pub fn fetch_wikiquote(author: &str) -> anyhow::Result<Vec<String>> {
         );
 
         let body: String = match ureq::get(&section_url)
-            .header("User-Agent", "MarxistQuoteApp/1.0 (Linux; Desktop Widget)")
+            .header("User-Agent", &config.user_agent)
             .call()
         {
             Ok(mut resp) => resp.body_mut().read_to_string()?,
@@ -83,7 +105,7 @@ pub fn fetch_wikiquote(author: &str) -> anyhow::Result<Vec<String>> {
         let extracted = extract_quotes_from_html(html_str);
         all_quotes.extend(extracted);
 
-        if all_quotes.len() >= 200 {
+        if all_quotes.len() >= config.max_quotes {
             break;
         }
     }
