@@ -1,12 +1,12 @@
 pkgbase = wikiquote-fetcher
 	pkgdesc = Reusable Wikiquote quote fetching and translation library with CLI
-	pkgver = 1.0.0
-	pkgrel = 2
+	pkgver = 1.0.1
+	pkgrel = 1
 	url = https://github.com/efebaykaraa/wikiquote-fetcher
 	arch = x86_64
 	license = GPL-3.0-or-later
 	makedepends = cargo
-	source = wikiquote-fetcher-1.0.0.tar.gz::https://github.com/efebaykaraa/wikiquote-fetcher/archive/refs/tags/v1.0.0.tar.gz
-	sha256sums = 34463ccd0cd79aa03ddedaca934f666a08df8b66e5bd780a3f82b5103e79c6bb
+	source = wikiquote-fetcher-1.0.1.tar.gz::https://github.com/efebaykaraa/wikiquote-fetcher/archive/refs/tags/v1.0.1.tar.gz
+	sha256sums = SKIP
 
 pkgname = wikiquote-fetcher

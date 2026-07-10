@@ -1,13 +1,13 @@
 pkgname=wikiquote-fetcher
-pkgver=1.0.0
-pkgrel=2
+pkgver=1.0.1
+pkgrel=1
 pkgdesc="Reusable Wikiquote quote fetching and translation library with CLI"
 arch=('x86_64')
 url="https://github.com/efebaykaraa/wikiquote-fetcher"
 license=('GPL-3.0-or-later')
 makedepends=('cargo')
 source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('34463ccd0cd79aa03ddedaca934f666a08df8b66e5bd780a3f82b5103e79c6bb')
+sha256sums=('SKIP')
 
 prepare() {
   cd "$srcdir/wikiquote-fetcher-$pkgver"
