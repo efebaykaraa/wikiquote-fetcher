@@ -1,0 +1,36 @@
+pkgname=wikiquote-fetcher
+pkgver=0.1.0
+_engylsver=0.1.0
+pkgrel=1
+pkgdesc="Wikiquote fetcher for Marxist Quote"
+arch=('x86_64')
+url="https://github.com/efebaykaraa/wikiquote-fetcher"
+license=('unknown')
+depends=('engyls')
+makedepends=('cargo')
+source=(
+  "${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz"
+  "engyls-${_engylsver}.tar.gz::https://github.com/efebaykaraa/engyls/archive/refs/tags/v${_engylsver}.tar.gz"
+)
+sha256sums=('SKIP' 'SKIP')
+
+prepare() {
+  ln -sfn "$srcdir/engyls-$_engylsver" "$srcdir/engyls"
+  cd "$srcdir/wikiquote-fetcher-$pkgver"
+
+  export CARGO_HOME="$srcdir/cargo-home"
+  cargo fetch --locked
+}
+
+build() {
+  cd "$srcdir/wikiquote-fetcher-$pkgver"
+
+  export CARGO_HOME="$srcdir/cargo-home"
+  cargo build --release --locked --offline
+}
+
+package() {
+  cd "$srcdir/wikiquote-fetcher-$pkgver"
+
+  install -Dm755 target/release/wikiquote-fetcher "$pkgdir/usr/bin/wikiquote-fetcher"
+}

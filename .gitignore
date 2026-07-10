@@ -1,0 +1,5 @@
+/target/
+/pkg/
+*.pkg.tar.zst
+*.pkg.tar.zst.sig
+*.src.tar.gz
