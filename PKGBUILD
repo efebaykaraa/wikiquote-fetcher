@@ -1,3 +1,5 @@
+# Maintainer: efebaykaraa <efebaykaraa@users.noreply.github.com>
+umask 022
 pkgname=wikiquote-fetcher
 pkgver=1.0.1
 pkgrel=1
@@ -5,12 +7,13 @@ pkgdesc="Reusable Wikiquote quote fetching and translation library with CLI"
 arch=('x86_64')
 url="https://github.com/efebaykaraa/wikiquote-fetcher"
 license=('GPL-3.0-or-later')
+depends=('glibc' 'libgcc')
 makedepends=('cargo')
 source=()
 sha256sums=()
 
 build() {
-  cd "$startdir"
+  cd "$srcdir"
 
   unset RUSTFLAGS
   export RUSTFLAGS=
@@ -46,7 +49,7 @@ build() {
 }
 
 package() {
-  cd "$startdir"
+  cd "$srcdir"
   install -Dm755 target/release/wikiquote-fetcher "$pkgdir/usr/bin/wikiquote-fetcher"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

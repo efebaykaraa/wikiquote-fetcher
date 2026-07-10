@@ -5,3 +5,4 @@
 *.src.tar.gz
 /aur/src/
 /aur/pkg/
+*.tar.gz
