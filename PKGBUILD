@@ -1,9 +1,9 @@
 pkgname=wikiquote-fetcher
-pkgver=0.1.0
+pkgver=0.1.1
 pkgrel=1
-pkgdesc="Wikiquote fetcher for Marxist Quote"
+pkgdesc="Fetches quotes from Wikiquote for desktop quote overlays"
 arch=('x86_64')
-license=('unknown')
+license=('GPL-3.0-or-later')
 depends=('engyls')
 makedepends=('cargo')
 source=()
@@ -17,4 +17,5 @@ build() {
 package() {
   cd "$startdir"
   install -Dm755 target/release/wikiquote-fetcher "$pkgdir/usr/bin/wikiquote-fetcher"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
