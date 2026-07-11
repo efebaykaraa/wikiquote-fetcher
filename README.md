@@ -4,6 +4,15 @@ Reusable Rust library and CLI for fetching quotes from Wikiquote, translating te
 
 The library is application-agnostic: callers provide the author/page name, optional `WikiquoteConfig`, and optional `QuotePoolStore` path.
 
+## AUR
+
+> [!TIP]
+> **wikiquote-fetcher** is available on the Arch User Repository: [`wikiquote-fetcher`](https://aur.archlinux.org/packages/wikiquote-fetcher)
+>
+> ```sh
+> yay -S wikiquote-fetcher
+> ```
+
 ## CLI
 
 ```sh
