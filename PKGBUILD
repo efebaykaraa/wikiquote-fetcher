@@ -2,7 +2,7 @@
 umask 022
 pkgname=wikiquote-fetcher
 pkgver=1.0.1
-pkgrel=1
+pkgrel=4
 pkgdesc="Reusable Wikiquote quote fetching and translation library with CLI"
 arch=('x86_64')
 url="https://github.com/efebaykaraa/wikiquote-fetcher"
@@ -51,5 +51,7 @@ build() {
 package() {
   cd "$srcdir"
   install -Dm755 target/release/wikiquote-fetcher "$pkgdir/usr/bin/wikiquote-fetcher"
+  install -Dm644 Cargo.toml Cargo.lock -t "$pkgdir/usr/share/$pkgname"
+  install -Dm644 src/*.rs -t "$pkgdir/usr/share/$pkgname/src"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
