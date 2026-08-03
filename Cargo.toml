@@ -1,8 +1,22 @@
 [package]
 name = "wikiquote-fetcher"
-version = "1.0.1"
+version = "1.0.2"
 edition = "2024"
+description = "Fetch quotes from Wikiquote, translate them, and manage reusable quote pools"
 license = "GPL-3.0-or-later"
+repository = "https://github.com/efebaykaraa/wikiquote-fetcher"
+homepage = "https://github.com/efebaykaraa/wikiquote-fetcher"
+documentation = "https://docs.rs/wikiquote-fetcher"
+readme = "README.md"
+keywords = ["wikiquote", "quotes", "translation", "cli"]
+categories = ["command-line-utilities", "web-programming::http-client"]
+include = [
+    "src/**",
+    "Cargo.toml",
+    "Cargo.lock",
+    "README.md",
+    "LICENSE",
+]
 
 [dependencies]
 anyhow = "1.0"

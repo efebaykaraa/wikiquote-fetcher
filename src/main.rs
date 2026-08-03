@@ -19,7 +19,10 @@ fn pool_command(args: &[String]) -> anyhow::Result<()> {
         bail!("pool commands require --dir <path>");
     }
     let dir = PathBuf::from(args.get(1).context("missing pool dir")?);
-    let command = args.get(2).map(String::as_str).context("missing pool command")?;
+    let command = args
+        .get(2)
+        .map(String::as_str)
+        .context("missing pool command")?;
     let author = args.get(3).context("missing author")?;
     let store = QuotePoolStore::new(dir);
 

@@ -59,15 +59,13 @@ pub fn fetch_wikiquote_with_config(
         }
     }
 
-    if quote_section_indices.is_empty() {
-        if let Some(quotes_section) = sections
+    if quote_section_indices.is_empty()
+        && let Some(quotes_section) = sections
             .iter()
             .find(|s| s["line"].as_str() == Some("Quotes"))
-        {
-            if let Some(idx) = quotes_section["index"].as_str() {
-                quote_section_indices.push(idx.to_string());
-            }
-        }
+        && let Some(idx) = quotes_section["index"].as_str()
+    {
+        quote_section_indices.push(idx.to_string());
     }
 
     if quote_section_indices.is_empty() {
@@ -142,10 +140,7 @@ fn extract_direct_text(element: &scraper::ElementRef) -> String {
                 let tag = el.name();
                 if tag == "ul"
                     || tag == "dl"
-                    || tag == "span"
-                        && el
-                            .attr("class")
-                            .map_or(false, |c| c.contains("editsection"))
+                    || tag == "span" && el.attr("class").is_some_and(|c| c.contains("editsection"))
                 {
                     continue;
                 }
