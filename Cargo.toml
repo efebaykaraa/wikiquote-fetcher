@@ -11,11 +11,11 @@ readme = "README.md"
 keywords = ["wikiquote", "quotes", "translation", "cli"]
 categories = ["command-line-utilities", "web-programming::http-client"]
 include = [
-    "src/**",
-    "Cargo.toml",
-    "Cargo.lock",
-    "README.md",
-    "LICENSE",
+    "/src/**/*.rs",
+    "/Cargo.toml",
+    "/Cargo.lock",
+    "/README.md",
+    "/LICENSE",
 ]
 
 [dependencies]

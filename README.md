@@ -12,6 +12,14 @@ Install the command-line application from crates.io:
 cargo install wikiquote-fetcher
 ```
 
+On Arch Linux and derivatives, install the native AUR package instead:
+
+```sh
+yay -S wikiquote-fetcher
+# or
+paru -S wikiquote-fetcher
+```
+
 Add the library to a Rust project:
 
 ```sh
