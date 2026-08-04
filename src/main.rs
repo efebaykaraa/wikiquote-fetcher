@@ -2,11 +2,14 @@ use anyhow::{Context, bail};
 use std::path::PathBuf;
 use wikiquote_fetcher::{QuotePoolStore, WikiquoteConfig};
 
+mod install_so;
+
 fn usage() {
     eprintln!(
         "Usage:
   wikiquote-fetcher fetch <author>
   wikiquote-fetcher translate <language> <text>
+  wikiquote-fetcher --install-so [directory]
   wikiquote-fetcher pool --dir <path> path <author>
   wikiquote-fetcher pool --dir <path> show <author>
   wikiquote-fetcher pool --dir <path> fetch <author>
@@ -60,6 +63,9 @@ fn main() -> anyhow::Result<()> {
             let language = args.get(1).context("missing language")?;
             let text = args.get(2..).context("missing text")?.join(" ");
             println!("{}", wikiquote_fetcher::translate_quote(&text, language)?);
+        }
+        Some("--install-so") => {
+            install_so::install(args.get(1).map(PathBuf::from))?;
         }
         Some("pool") => pool_command(&args[1..])?,
         Some("help") | Some("--help") | Some("-h") => usage(),

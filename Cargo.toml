@@ -1,6 +1,6 @@
 [package]
 name = "wikiquote-fetcher"
-version = "1.0.2"
+version = "1.1.0"
 edition = "2024"
 description = "Fetch quotes from Wikiquote, translate them, and manage reusable quote pools"
 license = "GPL-3.0-or-later"
@@ -17,6 +17,9 @@ include = [
     "/README.md",
     "/LICENSE",
 ]
+
+[lib]
+crate-type = ["rlib", "dylib"]
 
 [dependencies]
 anyhow = "1.0"
