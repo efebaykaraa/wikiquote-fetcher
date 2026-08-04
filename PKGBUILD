@@ -2,7 +2,7 @@
 
 pkgname=wikiquote-fetcher
 pkgver=1.0.2
-pkgrel=1
+pkgrel=2
 pkgdesc="Fetch quotes from Wikiquote, translate them, and manage reusable quote pools"
 arch=('x86_64')
 url="https://github.com/efebaykaraa/wikiquote-fetcher"
@@ -42,6 +42,8 @@ build() {
     rm -f "$ring_out"/*.o
   fi
 
+  printf '\n[lib]\ncrate-type = ["rlib", "dylib"]\n' >> Cargo.toml
+  cargo build --frozen --release --lib
   cargo build --frozen --release --bin wikiquote-fetcher
 }
 
@@ -55,6 +57,10 @@ package() {
   cd "$pkgname-$_commit"
   install -Dm755 target/release/wikiquote-fetcher \
     "$pkgdir/usr/bin/wikiquote-fetcher"
+  install -Dm755 target/release/libwikiquote_fetcher.so \
+    "$pkgdir/usr/lib/libwikiquote_fetcher.so.$pkgver"
+  ln -s "libwikiquote_fetcher.so.$pkgver" \
+    "$pkgdir/usr/lib/libwikiquote_fetcher.so"
   install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }

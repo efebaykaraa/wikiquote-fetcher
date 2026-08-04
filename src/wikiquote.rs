@@ -9,7 +9,7 @@ pub struct WikiquoteConfig {
 impl Default for WikiquoteConfig {
     fn default() -> Self {
         Self {
-            user_agent: "wikiquote-fetcher/1.0".into(),
+            user_agent: format!("wikiquote-fetcher/{}", env!("CARGO_PKG_VERSION")),
             max_quotes: 200,
         }
     }

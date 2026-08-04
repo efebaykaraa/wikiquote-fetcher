@@ -1,0 +1,22 @@
+name: Release shared library
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  linux-x86_64:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build shared library
+        run: cargo build --locked --release --lib
+      - name: Prepare release asset
+        run: cp target/release/libwikiquote_fetcher.so libwikiquote_fetcher-x86_64-linux.so
+      - name: Upload release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" libwikiquote_fetcher-x86_64-linux.so --clobber
