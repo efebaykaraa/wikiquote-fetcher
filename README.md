@@ -4,7 +4,7 @@ Reusable Rust library and CLI for fetching quotes from Wikiquote, translating te
 
 The library is application-agnostic: callers provide the author/page name, optional `WikiquoteConfig`, and optional `QuotePoolStore` path.
 
-## Installation
+## Add to a Rust project
 
 Add the library to a Rust project:
 
@@ -12,11 +12,7 @@ Add the library to a Rust project:
 cargo add wikiquote-fetcher
 ```
 
-<div align="center">
-
-### OR
-
-</div>
+## Install the CLI tool and shared library
 
 Install the command-line application from crates.io:
 
@@ -33,32 +29,35 @@ wikiquote-fetcher --install-so
 The command does nothing when the same or a newer library is already installed.
 By default it installs updates in `~/.local/lib`; pass a directory to override it.
 
-On Arch Linux and derivatives, install the native AUR package instead:
+On Arch Linux and derivatives, it automatically installs both the shared library and the CLI tool from the AUR package [wikiquote-fetcher](https://aur.archlinux.org/packages/wikiquote-fetcher/):
+
+<details open>
+<summary><strong>paru</strong></summary>
 
 ```sh
-yay -S wikiquote-fetcher
-# or
-paru -S wikiquote-fetcher
+paru -S muote
 ```
+</details>
+
+<details closed>
+<summary><strong>yay</strong></summary>
+
+```sh
+yay -S muote
+```
+</details>
 
 To build the native package from this repository:
 
 ```sh
-./makepkg.sh -si
+makepkg -si
 ```
-
-The wrapper keeps makepkg's build files under `.makepkg/`, separate from the
-Rust `src/` directory. The standalone AUR recipe remains under `aur/`.
-
-The native package installs both `/usr/bin/wikiquote-fetcher` and the versioned
-shared library under `/usr/lib`.
 
 ## CLI
 
 ```sh
 wikiquote-fetcher fetch "Rosa Luxemburg"
 wikiquote-fetcher translate TR "Workers of the world, unite!"
-wikiquote-fetcher --install-so
 wikiquote-fetcher pool --dir ~/.cache/my-quote-app/pools fetch "Rosa Luxemburg"
 wikiquote-fetcher pool --dir ~/.cache/my-quote-app/pools show "Rosa Luxemburg"
 ```

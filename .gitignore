@@ -7,3 +7,4 @@
 /aur/src/
 /aur/pkg/
 *.tar.gz
+*.so

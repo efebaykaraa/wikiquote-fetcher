@@ -9,8 +9,15 @@ url="https://github.com/efebaykaraa/wikiquote-fetcher"
 license=('GPL-3.0-or-later')
 depends=('gcc-libs' 'glibc')
 makedepends=('cargo')
-source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('564d18df3480c08ef477a2b653952a9dcde58266e8f7ce6436326fbc1ebd0911')
+_so_asset=libwikiquote_fetcher-x86_64-linux.so
+source=(
+  "$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz"
+  "$_so_asset::$url/releases/download/v$pkgver/$_so_asset"
+)
+sha256sums=(
+  '564d18df3480c08ef477a2b653952a9dcde58266e8f7ce6436326fbc1ebd0911'
+  '5d5d43d9075801006cb99bd9eed4efcde64e87c736b4989c57e129c0ae824647'
+)
 
 _cargo_environment() {
   export CARGO_HOME="$srcdir/cargo-home"
@@ -54,7 +61,7 @@ package() {
   cd "$pkgname-$pkgver"
   install -Dm755 target/release/wikiquote-fetcher \
     "$pkgdir/usr/bin/wikiquote-fetcher"
-  install -Dm755 target/release/libwikiquote_fetcher.so \
+  install -Dm755 "$srcdir/$_so_asset" \
     "$pkgdir/usr/lib/libwikiquote_fetcher.so.$pkgver"
   ln -s "libwikiquote_fetcher.so.$pkgver" \
     "$pkgdir/usr/lib/libwikiquote_fetcher.so"

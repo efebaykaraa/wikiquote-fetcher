@@ -9,6 +9,8 @@ pkgbase = wikiquote-fetcher
 	depends = gcc-libs
 	depends = glibc
 	source = wikiquote-fetcher-1.1.0.tar.gz::https://github.com/efebaykaraa/wikiquote-fetcher/archive/refs/tags/v1.1.0.tar.gz
+	source = libwikiquote_fetcher-x86_64-linux.so::https://github.com/efebaykaraa/wikiquote-fetcher/releases/download/v1.1.0/libwikiquote_fetcher-x86_64-linux.so
 	sha256sums = 564d18df3480c08ef477a2b653952a9dcde58266e8f7ce6436326fbc1ebd0911
+	sha256sums = 5d5d43d9075801006cb99bd9eed4efcde64e87c736b4989c57e129c0ae824647
 
 pkgname = wikiquote-fetcher
